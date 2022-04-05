@@ -4,7 +4,6 @@ import TaskStore from './modules/taskStore.js';
 import enterImg from './icons/enter.png';
 import loadingImg from './icons/loading.png';
 import menuImg from './icons/menuVertical.png';
-// import moveImg from './icons/move.png';
 import trashImg from './icons/trash.png';
 
 const taskStore = new TaskStore();
@@ -57,8 +56,24 @@ const leaveEditionMode = (event) => {
     const img = rowTask.childNodes[1];
     img.src = menuImg;
     img.alt = 'menu vertical';
-    // window.location.reload();
   }
+};
+
+const createInputEdit = (i, index) => {
+  const inputCheckbox = document.createElement('input');
+  inputCheckbox.setAttribute('type', 'checkbox');
+  inputCheckbox.setAttribute('id', `${index}`);
+  inputCheckbox.addEventListener('change', () => {
+    const container = inputCheckbox.parentElement;
+    const inputEdit = container.childNodes[1];
+    if (inputCheckbox.checked) {
+      inputEdit.classList.add('strike');
+    } else {
+      inputEdit.classList.remove('strike');
+    }
+    taskStore.updateStatus(inputCheckbox.id, inputCheckbox.checked);
+  });
+  return inputCheckbox;
 };
 
 window.addEventListener('load', () => {
@@ -110,22 +125,9 @@ window.addEventListener('load', () => {
   const ul = document.getElementsByTagName('ul')[0];
   ul.classList.add('tasksContainer');
   const tasksArray = taskStore.gettasks();
-  if (tasksArray !== null) {
+  if (tasksArray !== 'undefined' && tasksArray !== null) {
     for (let i = 0; i < tasksArray.length; i += 1) {
-      const inputCheckbox = document.createElement('input');
-      inputCheckbox.setAttribute('type', 'checkbox');
-      inputCheckbox.setAttribute('id', `${tasksArray[i].index}`);
-      inputCheckbox.addEventListener('change', () => {
-        const container = inputCheckbox.parentElement;
-        const inputEdit = container.childNodes[1];
-        if (inputCheckbox.checked) {
-          inputEdit.classList.add('strike');
-        } else {
-          inputEdit.classList.remove('strike');
-        }
-        taskStore.updateStatus(inputCheckbox.id, inputCheckbox.checked);
-      });
-
+      const inputCheckbox = createInputEdit(i, tasksArray[i].index);
       const inputEdit = document.createElement('input');
       inputEdit.setAttribute('type', 'text');
       if (tasksArray[i].completed) {

@@ -1,3 +1,7 @@
+* {
+  --var-border: 1px solid rgb(211, 207, 207);
+}
+
 body {
   background-color: white;
 }
@@ -12,12 +16,12 @@ body {
 }
 
 .sectionContainer {
-  border: 1px solid rgb(211, 207, 207);
+  border: var(--var-border);
   box-shadow: 12px 12px 2px 1px rgba(131, 129, 129, 0.05);
 }
 
 .footerContainer {
-  border-top: 1px solid rgb(211, 207, 207);
+  border-top: var(--var-border);
   padding: 15px 0;
 }
 
@@ -44,7 +48,7 @@ body {
 }
 
 .tasks {
-  border-top: 1px solid rgb(211, 207, 207);
+  border-top: var(--var-border);
 }
 
 .tasks div label {
@@ -63,7 +67,7 @@ body {
 
 .articleContainer {
   margin-bottom: 10px;
-  border-bottom: 1px solid rgb(211, 207, 207);
+  border-bottom: var(--var-border);
 }
 
 .tasksContainer {
